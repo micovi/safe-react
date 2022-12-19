@@ -70,7 +70,7 @@ const getSafeContractDeployment = ({ safeVersion }: { safeVersion: string }): Si
  */
 const getGnosisSafeContractInstance = (web3: Web3, chainId: ChainId): GnosisSafe => {
   const safeSingletonDeployment = getSafeContractDeployment({ safeVersion: LATEST_SAFE_VERSION })
-  const contractAddress = safeSingletonDeployment?.networkAddresses[chainId]
+  const contractAddress = safeSingletonDeployment?.defaultAddress
 
   if (!contractAddress) {
     throw new Error(`GnosisSafe contract not found for chainId: ${chainId}`)
@@ -93,7 +93,9 @@ const getProxyFactoryContractInstance = (web3: Web3, chainId: ChainId): ProxyFac
     getProxyFactoryDeployment({
       version: LATEST_SAFE_VERSION,
     })
-  const contractAddress = proxyFactoryDeployment?.networkAddresses[chainId]
+
+  console.log('proxyFactoryDeployment', proxyFactoryDeployment)
+  const contractAddress = proxyFactoryDeployment?.defaultAddress
 
   if (!contractAddress) {
     throw new Error(`GnosisSafeProxyFactory contract not found for chainId: ${chainId}`)
@@ -116,7 +118,7 @@ const getFallbackHandlerContractInstance = (web3: Web3, chainId: ChainId): Compa
     getFallbackHandlerDeployment({
       version: LATEST_SAFE_VERSION,
     })
-  const contractAddress = fallbackHandlerDeployment?.networkAddresses[chainId]
+  const contractAddress = fallbackHandlerDeployment?.defaultAddress
 
   if (!contractAddress) {
     throw new Error(`FallbackHandler contract not found for chainId: ${chainId}`)
@@ -138,7 +140,7 @@ const getMultiSendCallOnlyContractInstance = (web3: Web3, chainId: ChainId): Mul
     getMultiSendCallOnlyDeployment({
       network: chainId.toString(),
     }) || getMultiSendCallOnlyDeployment()
-  const contractAddress = multiSendDeployment?.networkAddresses[chainId]
+  const contractAddress = multiSendDeployment?.defaultAddress
 
   if (!contractAddress) {
     throw new Error(`MultiSendCallOnly contract not found for chainId: ${chainId}`)
@@ -157,7 +159,7 @@ const getMultiSendContractInstance = (web3: Web3, chainId: ChainId): MultiSend =
     getMultiSendDeployment({
       network: chainId.toString(),
     }) || getMultiSendDeployment()
-  const contractAddress = multiSendDeployment?.networkAddresses[chainId]
+  const contractAddress = multiSendDeployment?.defaultAddress
 
   if (!contractAddress) {
     throw new Error(`MultiSend contract not found for chainId: ${chainId}`)
@@ -176,7 +178,7 @@ export const getSignMessageLibAddress = (chainId: ChainId): string | undefined =
     getSignMessageLibDeployment({
       network: chainId.toString(),
     }) || getSignMessageLibDeployment()
-  const contractAddress = signMessageLibDeployment?.networkAddresses[chainId]
+  const contractAddress = signMessageLibDeployment?.defaultAddress
 
   if (!contractAddress) {
     throw new Error(`SignMessageLib contract not found for chainId: ${chainId}`)
@@ -196,7 +198,7 @@ export const getSignMessageLibContractInstance = (web3: Web3, chainId: ChainId):
     getSignMessageLibDeployment({
       network: chainId.toString(),
     }) || getSignMessageLibDeployment()
-  const contractAddress = signMessageLibDeployment?.networkAddresses[chainId]
+  const contractAddress = signMessageLibDeployment?.defaultAddress
 
   if (!contractAddress) {
     throw new Error(`SignMessageLib contract not found for chainId: ${chainId}`)
